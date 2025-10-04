@@ -24,6 +24,12 @@ public class PlayerController : MonoBehaviour {
     [SerializeField, Tooltip("Additional gravitational pull.")]
     private float _extraGravity = 40;
 
+    [SerializeField, Tooltip("The bullet projectile prefab to fire.")]
+    private GameObject _bulletToSpawn;
+
+    [Tooltip("The direction that the Player is facing.")]
+    Vector3 _curFacing = Vector3.zero;
+
     // Start is called before the first frame update
     void Start() {
         _rigidbody = GetComponent<Rigidbody>();
@@ -37,19 +43,26 @@ public class PlayerController : MonoBehaviour {
 
         // check to see if any of the keyboard arrows are being pressed
         if (Input.GetKey(KeyCode.RightArrow)) {
-            curSpeed.x += (_movementAcceleration * Time.deltaTime);
+            curSpeed.x += _movementAcceleration * Time.deltaTime;
         }
 
         if (Input.GetKey(KeyCode.LeftArrow)) {
-            curSpeed.x -= (_movementAcceleration * Time.deltaTime);
+            curSpeed.x -= _movementAcceleration * Time.deltaTime;
         }
 
         if (Input.GetKey(KeyCode.UpArrow)) {
-            curSpeed.z += (_movementAcceleration * Time.deltaTime);
+            curSpeed.z += _movementAcceleration * Time.deltaTime;
         }
 
         if (Input.GetKey(KeyCode.DownArrow)) {
-            curSpeed.z -= (_movementAcceleration * Time.deltaTime);
+            curSpeed.z -= _movementAcceleration * Time.deltaTime;
+        }
+
+        // store the current facing
+        // do this after speed is adjusted by arrow keys
+        // be before friction is applied
+        if (curSpeed.x != 0 && curSpeed.z != 0) {
+            _curFacing = curSpeed.normalized;
         }
 
         // does the player want to jump?
@@ -59,14 +72,25 @@ public class PlayerController : MonoBehaviour {
             curSpeed.y -= _extraGravity * Time.deltaTime;
         }
 
+        // fire the weapon?
+        if (Input.GetKeyDown(KeyCode.Return)) {
+            GameObject newBullet = Instantiate(_bulletToSpawn, transform.position, Quaternion.identity);
+
+            Bullet bullet = newBullet.GetComponent<Bullet>();
+
+            if (bullet) {
+                bullet.SetDirection(new Vector3(_curFacing.x, 0f, _curFacing.z));
+            }
+        }
+
         // if both left and right keys are simultaneously pressed (or not pressed), apply friction
         if (Input.GetKey(KeyCode.LeftArrow) == Input.GetKey(KeyCode.RightArrow)) {
-            curSpeed.x -= (_movementFriction * curSpeed.x);
+            curSpeed.x -= _movementFriction * curSpeed.x;
         }
 
         // apply similar friction logic to up and down keys
         if (Input.GetKey(KeyCode.UpArrow) == Input.GetKey(KeyCode.DownArrow)) {
-            curSpeed.z -= (_movementFriction * curSpeed.z);
+            curSpeed.z -= _movementFriction * curSpeed.z;
         }
 
         // apply the max speed
@@ -81,7 +105,7 @@ public class PlayerController : MonoBehaviour {
         // did we collide with a PickUpItem?
         if (collider.gameObject.GetComponent<PickUpItem>()) {
             // we collided with a valid PickUpItem
-            // so let that item know it's been 'Pickec Up' by this gameObject
+            // so let that item know it's been 'Picked Up' by this gameObject
             PickUpItem item = collider.gameObject.GetComponent<PickUpItem>();
             item.onPickedUp(this.gameObject);
         }
