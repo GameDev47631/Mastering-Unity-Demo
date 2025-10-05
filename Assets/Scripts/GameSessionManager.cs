@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameSessionManager : MonoBehaviour {
 
@@ -9,6 +10,12 @@ public class GameSessionManager : MonoBehaviour {
 
     [SerializeField, Tooltip("Where the player will respawn.")]
     private Transform _respawnLocation;
+
+    [SerializeField, Tooltip("Object to display when the game is over.")]
+    private GameObject _gameOverObj;
+
+    [SerializeField, Tooltip("Title Menu countdown after the game is over.")]
+    private float _returnToMenuCountdown = 0;
 
     static public GameSessionManager Instance;
 
@@ -19,7 +26,13 @@ public class GameSessionManager : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
+        if (_returnToMenuCountdown > 0) {
+            _returnToMenuCountdown -= Time.deltaTime;
 
+            if (_returnToMenuCountdown < 0) {
+                SceneManager.LoadScene("TitleMenu");
+            }
+        }
     }
 
     void Awake() {
@@ -33,6 +46,10 @@ public class GameSessionManager : MonoBehaviour {
             // player is out of lives
             GameObject.Destroy(player.gameObject);
             Debug.Log("Game Over!");
+
+            _gameOverObj.SetActive(true);
+            _returnToMenuCountdown = 4;
+
         } else {
             // use a life to respawn the player
             _playerLives--;
@@ -50,5 +67,13 @@ public class GameSessionManager : MonoBehaviour {
 
             Debug.Log("Player Lives Remaining: " + _playerLives);
         }
+    }
+
+    public int GetCoins() {
+        return PickUpItem.s_objectsCollected;
+    }
+
+    public int GetLives() {
+        return _playerLives;
     }
 }

@@ -7,7 +7,7 @@ public class PickUpItem : MonoBehaviour {
     [SerializeField, Tooltip("The speed that this object rotates at.")]
     private float _rotationSpeed = 5;
 
-    static int s_objectsCollected = 0;
+    public static int s_objectsCollected = 0;
 
     // Start is called before the first frame update
     void Start() {

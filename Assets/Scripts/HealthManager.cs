@@ -59,13 +59,13 @@ public class HealthManager : MonoBehaviour {
         }
 
         // toggle camera shake for the player
-            if (GetComponent<PlayerController>()) {
-                CameraShake camshake = Camera.main.GetComponent<CameraShake>();
+        if (GetComponent<PlayerController>()) {
+            CameraShake camshake = Camera.main.GetComponent<CameraShake>();
 
-                if (camshake) {
-                    camshake.enabled = (bool)(_invincibilityFramesCur > 0);
-                }
+            if (camshake) {
+                camshake.enabled = (bool)(_invincibilityFramesCur > 0);
             }
+        }
     }
 
     public float AdjustCurHealth(float change) {
@@ -111,5 +111,13 @@ public class HealthManager : MonoBehaviour {
         _isDead = false;
         _healthCur = _healthMax;
         _invincibilityFramesCur = 0;
+    }
+
+    public float GetHealthCur() {
+        return _healthCur;
+    }
+
+    public float GetHealthMax() {
+        return _healthMax;
     }
 }
