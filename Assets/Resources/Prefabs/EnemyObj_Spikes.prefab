@@ -168,7 +168,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: bb9c7994db8094f4ebe152f3c5a464e6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -222,7 +222,9 @@ GameObject:
   - component: {fileID: 8283469493212797519}
   - component: {fileID: 4192601456635920208}
   - component: {fileID: 8065141662685390220}
+  - component: {fileID: 1490937691719291768}
   - component: {fileID: 4114961115187123225}
+  - component: {fileID: 4089164957244693360}
   m_Layer: 0
   m_Name: EnemyObj_Spikes
   m_TagString: Untagged
@@ -281,6 +283,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22fedb06daff560429b73355cb70848d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1490937691719291768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1062809296898986817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 451b6a373b9cf81419f6fd92ac339836, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _healthMax: 10
+  _healthCur: 10
+  _invincibilityFramesMax: 1
+  _invincibilityFramesCur: 0
+  _isDead: 0
 --- !u!114 &4114961115187123225
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -296,6 +315,23 @@ MonoBehaviour:
   _healthChange: -5
   _applyToTarget: 0
   _destroyOnCollision: 0
+--- !u!114 &4089164957244693360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1062809296898986817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31f6cd46471e0a84da3d4958f7ec315f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mainExplosionChunk: {fileID: 3970175602603059892, guid: f3e0b7bbb22ecb742a8f566e1550eb4c, type: 3}
+  _secondaryExplosionChunk: {fileID: 3056867758575265614, guid: 3d57629d9fe6de342ac6878c9ec8ce49, type: 3}
+  _minChunks: 20
+  _maxChunks: 40
+  _explosionForce: 1500
 --- !u!1 &1362568384561992240
 GameObject:
   m_ObjectHideFlags: 0
@@ -464,7 +500,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: bb9c7994db8094f4ebe152f3c5a464e6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -675,7 +711,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: bb9c7994db8094f4ebe152f3c5a464e6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

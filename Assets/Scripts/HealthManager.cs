@@ -36,11 +36,14 @@ public class HealthManager : MonoBehaviour {
         }
 
         // handle death
-        if (IsDead()) {
+        if (_isDead) {
+            VFXHandler vfx = GetComponent<VFXHandler>();
+            vfx?.SpawnExplosion();
+
             if (GetComponent<PlayerController>()) {
                 GameSessionManager.Instance.onPlayerDeath(gameObject);
             } else {
-                GameObject.Destroy(gameObject);
+                Destroy(gameObject);
             }
         }
 
@@ -66,6 +69,12 @@ public class HealthManager : MonoBehaviour {
                 camshake.enabled = (bool)(_invincibilityFramesCur > 0);
             }
         }
+
+        // insta-death when we're in an endless pit
+        float yBounds = -25f;
+        if (transform.position.y < yBounds) {
+            _isDead = true;
+        }
     }
 
     public float AdjustCurHealth(float change) {
@@ -80,7 +89,7 @@ public class HealthManager : MonoBehaviour {
         // check for health limits
         if (_healthCur <= 0) {
             // this object has died, so start the process to destroy it
-            onDeath();
+            OnDeath();
         } else if (_healthCur >= _healthMax) {
             // this object has more health than it should
             // so cap it to its max
@@ -95,7 +104,7 @@ public class HealthManager : MonoBehaviour {
         return _healthCur;
     }
 
-    void onDeath() {
+    void OnDeath() {
         if (_healthCur > 0) {
             Debug.Log(gameObject.name + " set as dead before health reached 0.");
         }

@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour {
     private GameObject _bulletToSpawn;
 
     [Tooltip("The direction that the Player is facing.")]
-    Vector3 _curFacing = Vector3.zero;
+    Vector3 _curFacing = /* Vector3.zero */ new(1, 0, 0);
 
     // Start is called before the first frame update
     void Start() {
@@ -42,28 +42,39 @@ public class PlayerController : MonoBehaviour {
         Vector3 curSpeed = _rigidbody.velocity;
 
         // check to see if any of the keyboard arrows are being pressed
+        // if so, adjust the speed of the player
+        // also store the facing based on the keys being pressed
         if (Input.GetKey(KeyCode.RightArrow)) {
             curSpeed.x += _movementAcceleration * Time.deltaTime;
+            _curFacing.x = 1;
+            _curFacing.z = 0;
         }
 
         if (Input.GetKey(KeyCode.LeftArrow)) {
             curSpeed.x -= _movementAcceleration * Time.deltaTime;
+            _curFacing.x = -1;
+            _curFacing.z = 0;
         }
 
         if (Input.GetKey(KeyCode.UpArrow)) {
             curSpeed.z += _movementAcceleration * Time.deltaTime;
+            _curFacing.x = 0;
+            _curFacing.z = 1;
         }
 
         if (Input.GetKey(KeyCode.DownArrow)) {
             curSpeed.z -= _movementAcceleration * Time.deltaTime;
+            _curFacing.x = 0;
+            _curFacing.z = -1;
         }
 
-        // store the current facing
-        // do this after speed is adjusted by arrow keys
-        // be before friction is applied
-        if (curSpeed.x != 0 && curSpeed.z != 0) {
-            _curFacing = curSpeed.normalized;
-        }
+        /* "Although the book stated to delete this code, on page 152, I decided to archive it instead."
+         *  // store the current facing
+         *  // do this after speed is adjusted by arrow keys
+         *  // be before friction is applied
+         *  if (curSpeed.x != 0 && curSpeed.z != 0) {
+         *      _curFacing = curSpeed.normalized;
+         *  } */
 
         // does the player want to jump?
         if (Input.GetKey(KeyCode.Space) && Mathf.Abs(curSpeed.y) < 1) {

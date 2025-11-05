@@ -12,7 +12,7 @@ public class GameSessionManager : MonoBehaviour {
     private Transform _respawnLocation;
 
     [SerializeField, Tooltip("Object to display when the game is over.")]
-    private GameObject _gameOverObj;
+    private GameObject _gameOverObject;
 
     [SerializeField, Tooltip("Title Menu countdown after the game is over.")]
     private float _returnToMenuCountdown = 0;
@@ -47,7 +47,7 @@ public class GameSessionManager : MonoBehaviour {
             GameObject.Destroy(player.gameObject);
             Debug.Log("Game Over!");
 
-            _gameOverObj.SetActive(true);
+            _gameOverObject.SetActive(true);
             _returnToMenuCountdown = 4;
 
         } else {
@@ -63,6 +63,12 @@ public class GameSessionManager : MonoBehaviour {
 
             if (_respawnLocation) {
                 player.transform.position = _respawnLocation.position;
+            }
+
+            // clear the velocity of this object
+            Rigidbody rb = player.transform.GetComponent<Rigidbody>();
+            if (rb) {
+                rb.velocity = Vector3.zero;
             }
 
             Debug.Log("Player Lives Remaining: " + _playerLives);

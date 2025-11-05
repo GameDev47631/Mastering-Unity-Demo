@@ -27,14 +27,14 @@ public class HealthModifier : MonoBehaviour {
 
     }
 
-    /* "Despite how it is shown in the book - page 77 - the sphere will not receive damage!"
+    /* "Despite how it is stated in the book - page 77 - the sphere will not receive damage!"
      *
      * void OnCollisionEnter(Collision collision) {
      *     GameObject hitObj = collision.gameObject; */
 
     void OnTriggerStay(Collider collider) {
         GameObject hitObj = collider.gameObject;
-        
+
         // get the HealthManager of the object we've hit
         HealthManager healthManager = hitObj.GetComponent<HealthManager>();
 
@@ -44,7 +44,7 @@ public class HealthModifier : MonoBehaviour {
 
             // should we self-destruct after dealing damage?
             if (_destroyOnCollision) {
-                GameObject.Destroy(gameObject);
+                Destroy(gameObject);
             }
         }
     }
@@ -59,7 +59,6 @@ public class HealthModifier : MonoBehaviour {
         } else if (_applyToTarget == DamageTarget.Enemies && possibleTarget.GetComponent<AIBrain>()) {
             return true;
         }
-
 
         // not a valid target
         return false;
