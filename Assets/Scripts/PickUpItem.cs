@@ -11,7 +11,10 @@ public class PickUpItem : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
-
+        /* "Though not mentioned within Chapter 4, this line of text
+         *  ensures that the number of items collected don't stack up
+         *  after playing a new game." */
+        s_objectsCollected = 0;
     }
 
     // Update is called once per frame

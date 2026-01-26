@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
 
     // the Rigid Body physics component of this project
-    // since we'll be accessing it a lot, wwe'll store it as a member
+    // since we'll be accessing it a lot, we'll store it as a member
     private Rigidbody _rigidbody;
 
     [SerializeField, Tooltip("How much acceleration is applied to this object when directional input is received.")]
@@ -27,12 +27,19 @@ public class PlayerController : MonoBehaviour {
     [SerializeField, Tooltip("The bullet projectile prefab to fire.")]
     private GameObject _bulletToSpawn;
 
+    [SerializeField, Tooltip("Are we on the ground?")]
+    private bool _isGrounded = false;
+
+    [SerializeField, Tooltip("The player's main collision shape.")]
+    Collider _myCollider = null;
+
     [Tooltip("The direction that the Player is facing.")]
     Vector3 _curFacing = /* Vector3.zero */ new(1, 0, 0);
 
     // Start is called before the first frame update
     void Start() {
         _rigidbody = GetComponent<Rigidbody>();
+        _myCollider = GetComponent<Collider>();
     }
 
     // Update is called once per frame
@@ -77,7 +84,7 @@ public class PlayerController : MonoBehaviour {
          *  } */
 
         // does the player want to jump?
-        if (Input.GetKey(KeyCode.Space) && Mathf.Abs(curSpeed.y) < 1) {
+        if (Input.GetKeyDown(KeyCode.Space) && /* Mathf.Abs(curSpeed.y) < 1 */ CalcIsGrounded()) {
             curSpeed.y += _jumpVelocity;
         } else {
             curSpeed.y -= _extraGravity * Time.deltaTime;
@@ -120,5 +127,21 @@ public class PlayerController : MonoBehaviour {
             PickUpItem item = collider.gameObject.GetComponent<PickUpItem>();
             item.onPickedUp(this.gameObject);
         }
+    }
+
+    /// <summary>
+    /// Check below the player object.
+    /// If they're standing on a solid object, they can Jump
+    /// and perform other actions not available in mid-air.
+    /// </summary>
+    bool CalcIsGrounded() {
+        float offset = 0.1f;
+
+        Vector3 pos = _myCollider.bounds.center;
+        pos.y = _myCollider.bounds.min.y - offset;
+
+        _isGrounded = Physics.CheckSphere(pos, offset);
+
+        return _isGrounded;
     }
 }
