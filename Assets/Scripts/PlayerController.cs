@@ -36,10 +36,17 @@ public class PlayerController : MonoBehaviour {
     [Tooltip("The direction that the Player is facing.")]
     Vector3 _curFacing = /* Vector3.zero */ new(1, 0, 0);
 
+    // store whether or not input was received this frame
+    bool _moveInput = false;
+
+    // the animator controller for this object
+    Animator _myAnimator;
+
     // Start is called before the first frame update
     void Start() {
         _rigidbody = GetComponent<Rigidbody>();
         _myCollider = GetComponent<Collider>();
+        _myAnimator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -48,28 +55,35 @@ public class PlayerController : MonoBehaviour {
         // grabbing this ensues we retain the gravity speed
         Vector3 curSpeed = _rigidbody.velocity;
 
+        // reset move input
+        _moveInput = false;
+
         // check to see if any of the keyboard arrows are being pressed
         // if so, adjust the speed of the player
         // also store the facing based on the keys being pressed
         if (Input.GetKey(KeyCode.RightArrow)) {
+            _moveInput = true;
             curSpeed.x += _movementAcceleration * Time.deltaTime;
             _curFacing.x = 1;
             _curFacing.z = 0;
         }
 
         if (Input.GetKey(KeyCode.LeftArrow)) {
+            _moveInput = true;
             curSpeed.x -= _movementAcceleration * Time.deltaTime;
             _curFacing.x = -1;
             _curFacing.z = 0;
         }
 
         if (Input.GetKey(KeyCode.UpArrow)) {
+            _moveInput = true;
             curSpeed.z += _movementAcceleration * Time.deltaTime;
             _curFacing.x = 0;
             _curFacing.z = 1;
         }
 
         if (Input.GetKey(KeyCode.DownArrow)) {
+            _moveInput = true;
             curSpeed.z -= _movementAcceleration * Time.deltaTime;
             _curFacing.x = 0;
             _curFacing.z = -1;
@@ -117,6 +131,13 @@ public class PlayerController : MonoBehaviour {
 
         // apply the changed velocity to this object's physics component
         _rigidbody.velocity = curSpeed;
+
+        /* "For some reason, the 'x' & 'z' values had to be negated.
+            Otherwise, the hero would move around backwards; page 213." */
+        // set rotation based on facing
+        transform.LookAt(transform.position + new Vector3(-_curFacing.x, 0f, -_curFacing.z));
+
+        UpdateAnimation();
     }
 
     void OnTriggerEnter(Collider collider) {
@@ -143,5 +164,17 @@ public class PlayerController : MonoBehaviour {
         _isGrounded = Physics.CheckSphere(pos, offset);
 
         return _isGrounded;
+    }
+
+    void UpdateAnimation() {
+        if (_myAnimator == null) {
+            return;
+        }
+
+        if (_moveInput) {
+            _myAnimator.Play("Run");
+        } else {
+            _myAnimator.Play("Idle");
+        }
     }
 }
