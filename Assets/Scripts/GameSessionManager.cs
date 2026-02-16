@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameSessionManager : MonoBehaviour {
-
     [Tooltip("Remaining player lives.")]
     private int _playerLives = 3;
 
@@ -19,12 +18,6 @@ public class GameSessionManager : MonoBehaviour {
 
     static public GameSessionManager Instance;
 
-    // Start is called before the first frame update
-    void Start() {
-
-    }
-
-    // Update is called once per frame
     void Update() {
         if (_returnToMenuCountdown > 0) {
             _returnToMenuCountdown -= Time.deltaTime;

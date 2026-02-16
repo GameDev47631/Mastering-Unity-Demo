@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class HealthManager : MonoBehaviour {
-
     [SerializeField, Tooltip("The maximum health of this object.")]
     private float _healthMax = 10;
 
@@ -19,12 +18,6 @@ public class HealthManager : MonoBehaviour {
     [SerializeField, Tooltip("Is this object dead?")]
     private bool _isDead = false;
 
-    // Start is called before the first frame update
-    void Start() {
-
-    }
-
-    // Update is called once per frame
     void Update() {
         // decrement the invincibility timer, if necessary
         if (_invincibilityFramesCur > 0) {

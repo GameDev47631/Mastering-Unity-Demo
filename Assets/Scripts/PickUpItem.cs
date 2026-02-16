@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PickUpItem : MonoBehaviour {
-
     [SerializeField, Tooltip("The speed that this object rotates at.")]
     private float _rotationSpeed = 5;
 
     public static int s_objectsCollected = 0;
 
-    // Start is called before the first frame update
     void Start() {
         /* "Though not mentioned within Chapter 4, this line of text
          *  ensures that the number of items collected don't stack up
@@ -17,7 +15,6 @@ public class PickUpItem : MonoBehaviour {
         s_objectsCollected = 0;
     }
 
-    // Update is called once per frame
     void Update() {
         // grab the current rotation, increment it, and re-apply it
         Vector3 newRotation = transform.eulerAngles;

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Springboard : MonoBehaviour {
-
     [SerializeField, Tooltip("Velocity change on the Y axis.")]
     float _upwardsForce = 2000f;
 
@@ -17,15 +16,5 @@ public class Springboard : MonoBehaviour {
             Rigidbody rb = hitObj.GetComponent<Rigidbody>();
             rb?.AddForce(0, _upwardsForce, 0);
         }
-    }
-
-    // Start is called before the first frame update
-    void Start() {
-        
-    }
-
-    // Update is called once per frame
-    void Update() {
-        
     }
 }

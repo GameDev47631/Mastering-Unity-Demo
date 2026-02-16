@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class FollowCam : MonoBehaviour {
-
     [SerializeField, Tooltip("The object to follow.")]
     private GameObject _camTarget;
 
@@ -16,12 +15,6 @@ public class FollowCam : MonoBehaviour {
     [SerializeField, Tooltip("The distance from the target to follow from.")]
     private float _camDistance = -16;
 
-    // Start is called before the first frame update
-    void Start() {
-        
-    }
-
-    // Update is called once per frame
     void Update() {
         // make sure we have a valid target
         if (!_camTarget) {

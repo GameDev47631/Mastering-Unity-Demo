@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ToggleTimer : MonoBehaviour {
-
     [SerializeField, Tooltip("Current timer.")]
     float _curTimer = 0;
 
@@ -13,12 +12,6 @@ public class ToggleTimer : MonoBehaviour {
     [SerializeField, Tooltip("Objects ti toggle on/off.")]
     List<GameObject> _toggleObjs;
 
-    // Start is called before the first frame update
-    void Start() {
-        
-    }
-
-    // Update is called once per frame
     void Update() {
         // if there are no objects to toggle
         // then don't bother with the countdown logic

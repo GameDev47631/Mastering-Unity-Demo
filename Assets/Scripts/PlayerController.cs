@@ -4,7 +4,6 @@ using System.ComponentModel;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
-
     // the Rigid Body physics component of this project
     // since we'll be accessing it a lot, we'll store it as a member
     private Rigidbody _rigidbody;
@@ -34,7 +33,7 @@ public class PlayerController : MonoBehaviour {
     Collider _myCollider = null;
 
     [Tooltip("The direction that the Player is facing.")]
-    Vector3 _curFacing = /* Vector3.zero */ new(1, 0, 0);
+    Vector3 _curFacing = /* Vector3.zero */ new Vector3(1, 0, 0);
 
     // store whether or not input was received this frame
     bool _moveInput = false;
@@ -42,14 +41,12 @@ public class PlayerController : MonoBehaviour {
     // the animator controller for this object
     Animator _myAnimator;
 
-    // Start is called before the first frame update
     void Start() {
         _rigidbody = GetComponent<Rigidbody>();
         _myCollider = GetComponent<Collider>();
         _myAnimator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
     void Update() {
         // get the current speed from the RigidBody physics component
         // grabbing this ensues we retain the gravity speed

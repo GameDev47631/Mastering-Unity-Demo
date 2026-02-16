@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class HealthModifier : MonoBehaviour {
-
     [SerializeField, Tooltip("Change to health when applied to an object.")]
     float _healthChange = 0;
 
@@ -16,16 +15,6 @@ public class HealthModifier : MonoBehaviour {
 
     [SerializeField, Tooltip("Should this object self-destruct on collision?")]
     bool _destroyOnCollision = false;
-
-    // Start is called before the first frame update
-    void Start() {
-
-    }
-
-    // Update is called once per frame
-    void Update() {
-
-    }
 
     /* "Despite how it is stated in the book - page 77 - the sphere will not receive damage!"
      *

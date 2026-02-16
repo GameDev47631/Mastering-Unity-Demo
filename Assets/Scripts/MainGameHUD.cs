@@ -5,7 +5,6 @@ using TMPro;
 using System;
 
 public class MainGameHUD : MonoBehaviour {
-
     [SerializeField, Tooltip("TMP object displaying our current health.")]
     TextMeshProUGUI _healthValueText;
 
@@ -18,12 +17,6 @@ public class MainGameHUD : MonoBehaviour {
     [SerializeField, Tooltip("The Health Manager we're displaying data for.")]
     HealthManager _healthManager;
 
-    // Start is called before the first frame update
-    void Start() {
-        
-    }
-
-    // Update is called once per frame
     void Update() {
         int curHealth = Mathf.RoundToInt(_healthManager.GetHealthCur());
         int maxHealth = Mathf.RoundToInt(_healthManager.GetHealthMax());

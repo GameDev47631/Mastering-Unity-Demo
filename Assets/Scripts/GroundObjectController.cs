@@ -10,7 +10,7 @@ public class GroundObjectController : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        /* Consider copying the comments from the book verbatim! */
+        /* "Consider copying the comments from the book verbatim!" */
 
         // the speed that this object rotates
         float speed = 15f;

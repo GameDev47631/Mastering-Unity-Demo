@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ItemSpawnZone : MonoBehaviour {
-
     [SerializeField, Tooltip("Prefab to spawn in this zone.")]
     private GameObject _itemToSpawn;
 

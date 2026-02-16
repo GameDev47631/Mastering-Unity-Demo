@@ -3,19 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour {
-
     [SerializeField, Tooltip("Speed of this bullet.")]
     private float _speed = 4f;
 
     [SerializeField, Tooltip("Normalized direction of this bullet.")]
     private Vector3 _direction = Vector3.zero;
 
-    // Start is called before the first frame update
     void Start() {
 
     }
 
-    // Update is called once per frame
     void Update() {
         // move the bullet
         Vector3 newPos = transform.position;
